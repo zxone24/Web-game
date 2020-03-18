@@ -109,11 +109,12 @@ function drawBall(){
 
 	if (X > barX )
 	{
-		if(Y > barY && Y < barY + barH+20)
+		if(Y+R > barY && Y < barY + barH)
 		dX = dX * -1;
 		score+=1
-		R -= 0.01;
-		dX = dX * 1.01;
+		R -= 0.05;
+		dX = dX * 1.05;
+		barH -= 0.05
 	}
 
 
