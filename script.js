@@ -23,7 +23,6 @@ let barH = 120;
 
 function init () {
 
-	//*get a refrence*//
 	let btn = document.querySelector("#btnname"); 
 	let game = document.querySelector(".gamecontainer");
 	btn.addEventListener("click", showInfo) ;
@@ -33,18 +32,9 @@ function init () {
 
 	canvas.addEventListener("mousemove", mouseTrack)
 
-
- // draw();
- // drawCar();
- // drawBall ();
-
-
  function mouseTrack(e){
-
  	barY = e.clientY - canvas.offsetTop;
-
  }
-
 }
 
  
@@ -111,12 +101,12 @@ function drawBall(){
 	{
 		if(Y+R > barY && Y < barY + barH)
 		dX = dX * -1;
-		score+=1
+		score = score + 1
 		R -= 0.05;
 		dX = dX * 1.05;
 		barH -= 0.05
 	}
-
+	
 
 	X += dX
 	Y += dY
@@ -125,38 +115,6 @@ function drawBall(){
 
 	document.querySelector("#gamescore").innerHTML = score
 }	
-
-
-
-
-function drawCar(){
-
-	ctx.clearRect(0,0,500,500);
-	
-	ctx.beginPath();
-	ctx.fillStyle = "blue";
-
-	X+=1;
-
-	ctx.fillRect (X,Y,W,H);
-	ctx.closePath();
-
-	ctx.beginPath();
-	ctx.fillStyle = "black";
-	ctx.arc(X+30,Y+H,20,0, 2* Math.PI, false);
-	ctx.fill();
-	ctx.closePath();
-
-	ctx.beginPath();
-	ctx.fillStyle = "black";
-	ctx.arc(X+W-30,Y+H,20,0, 2* Math.PI, false);
-	ctx.fill();
-	ctx.closePath();
-
-}
-
-
-
 
 
 function draw(){
@@ -220,7 +178,7 @@ function showInfo () {
 	let inptxt = document.querySelector("#textusername");
 	let title = document.querySelector("#textTitle");
 	title.innerHTML = "welcome to game " + inptxt.value + "!";
-
+	
 	 setInterval(drawGame , 20);
 
 	function drawGame(){
@@ -229,21 +187,3 @@ function showInfo () {
      	drawBar (); 
      }
 
-	// let box = document.querySelector("#container")
-	// let hElement = document.createElement("h2")
-	// hElement.innerHTML = "your score : 0 "
-	// box.appendChild(hElement);
-
-	// inptxt.value="";
-
-	// let aElement = document.createElement("a")
-	// aElement.innerHTML = "click here"
-	// aElement.href = "https://www.soja.ir"
-	// aElement.style = "color:red"
-	
-	
-	
-	
-	// alert("welcome to game " + inptxt.value); 
-
-}
