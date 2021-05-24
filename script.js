@@ -2,6 +2,7 @@ window.onload = init;
 
 let canvas;
 let ctx;
+let b;
 
 let X = 150;
 let Y = 300;
@@ -18,7 +19,7 @@ let score = 0;
 let barX = 490;
 let barY = 230;
 let barW = 10;
-let barH = 120;
+let barH = 150;
 
 
 function init () {
@@ -26,7 +27,6 @@ function init () {
 	let btn = document.querySelector("#btnname"); 
 	let game = document.querySelector(".gamecontainer");
 	btn.addEventListener("click", showInfo) ;
-
 	canvas = document.querySelector("#mycanvas");
 	ctx = canvas.getContext("2d");
 
@@ -60,9 +60,6 @@ function resetGame(){
  dX = 5;
  dY = 5;
 
- score = 0;
-
-
  barX = 490;
  barY = 230;
  barW = 10;
@@ -79,16 +76,16 @@ function drawBall(){
 	ctx.closePath();
 	ctx.fillStyle = "red";
 	ctx.fill();
-
 	
-
-	if (X > canvas.width+10) 
+	if (X > canvas.width + R*2 ) 
 	{	
+
 		alert ("GameOver your score " + score)
-		resetGame();
-		
+		score = 0
+		resetGame()
 	}
-	if (X-50 <0)
+
+	if (X-R*2 <0)
 		dX = dX * -1;
 
 	if(Y - R <0)
@@ -97,16 +94,15 @@ function drawBall(){
 	if(Y - R > canvas.height-45)
 		dY = dY * -1;
 
-	if (X > barX )
+	if (X > barX && Y+R  > barY && Y < barY + barH )
 	{
-		if(Y+R > barY && Y < barY + barH)
 		dX = dX * -1;
-		score = score + 1
 		R -= 0.05;
 		dX = dX * 1.05;
-		barH -= 0.05
-	}
-	
+		barH -= 0.05;
+		score = score + 1;
+	} 
+
 
 	X += dX
 	Y += dY
@@ -117,73 +113,18 @@ function drawBall(){
 }	
 
 
-function draw(){
-
-	ctx.beginPath();
-	ctx.fillStyle = "red";
-	ctx.strokeStyle = "aqua";
-	ctx.lineWidth = 1 ;
-	// ctx.fillRect( x , y , width , hight );
-	ctx.rect(0,0,500,160);
-	ctx.fill();
-	ctx.stroke();
-
-	ctx.closePath(); /*end*/
-
-
-	ctx.beginPath();
-	ctx.fillStyle = "green";
-	ctx.strokeStyle = "aqua";
-	ctx.lineWidth = 1 ;
-	// ctx.fillRect( x , y , width , hight );
-	ctx.rect(0,340,500,160);
-	ctx.fill();
-	ctx.stroke();
-
-	ctx.closePath(); /*end*/
-
-	ctx.beginPath();
-	ctx.fillStyle = "white";
-	ctx.strokeStyle = "aqua";
-	ctx.lineWidth = 1 ;
-	// ctx.fillRect( x , y , width , hight );
-	ctx.rect( 0 , 160 , 500 , 180 );
-	ctx.fill();
-	ctx.stroke();
-
-	ctx.closePath(); /*end*/
-
-
-	ctx.beginPath();
-	ctx.arc(250,250,50,0, 2 * Math.PI , false );
-	ctx.fillStyle="blue";
-	ctx.fill();
-	ctx.beginPath();
-
-	ctx.moveTo(100,100);
-	ctx.lineTo(200,100);
-	ctx.lineTo(200,200);
-	ctx.lineTo(100,100);
-
-
-	ctx.lineWidth = 2;
-	ctx.strokeStyle = "black";
-	ctx.fillStyle = "green";
-	ctx.fill () ;
-	ctx.stroke() ;
-} 
 
 function showInfo () {
 
 	let inptxt = document.querySelector("#textusername");
 	let title = document.querySelector("#textTitle");
 	title.innerHTML = "welcome to game " + inptxt.value + "!";
+	setInterval(drawGame , 20);
 	
-	 setInterval(drawGame , 20);
-
 	function drawGame(){
 
 	 	drawBall();
      	drawBar (); 
      }
 
+}
